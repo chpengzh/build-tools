@@ -29,22 +29,6 @@ ADD sources.list /etc/apt/sources.list
 RUN apt-get update
 
 #
-# Docker Service
-#
-RUN apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-RUN add-apt-repository \
-       "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/debian \
-       $(lsb_release -cs) \
-       stable"
-RUN apt-get update && apt-get install -y docker-ce
-
-#
 # Vim Editor
 #
 RUN apt-get install -y vim
@@ -63,6 +47,5 @@ RUN apt-get install -y \
 
 RUN mkdir -p /root/share
 WORKDIR /root/share
-ADD startup.sh  /opt/startup.sh
 
-ENTRYPOINT bash -e /opt/startup.sh
+ENTRYPOINT bash

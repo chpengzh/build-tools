@@ -19,10 +19,16 @@
 
 ### 1. 构建工具链
 
-> 构建镜像
+> 构建基础镜像
 
 ```
-> docker build . -t build-tools
+> cd simple && docker build . -t build-tools
+```
+
+> 构建桌面镜像
+
+```
+> cd desktop && docker build . -t build-tools-desktop
 ```
 
 >  在`~/.bashrc`(或`~/.zshrc`)中添加alias
@@ -39,6 +45,13 @@ alias build-tools-detached='docker run  -dt \
     --name ${PWD##*/}_$(date "+%Y%m%d-%H:%M:%S") \
     -v $(pwd):/root/share \
     build-tools'
+alias build-tools-desktop='docker run -dt \
+    --privileged \
+    --name debain-desktop \
+    -e DISPLAY=unix$DISPLAY \
+    -p 5901:5901 \
+    -v $(pwd):/root/share \
+    build-tools-desktop'
 ```
 
 ### 2. 使用工具链
